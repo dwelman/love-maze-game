@@ -35,11 +35,22 @@ function CameraController:update(dt)
             camera.y = camera.y - moveSpeed
         end
         
-        -- Rotation (left/right actions)
+        -- Horizontal rotation (left/right actions)
         if input.actions.turnLeft then
             camera.rotY = camera.rotY - rotSpeed
         elseif input.actions.turnRight then
             camera.rotY = camera.rotY + rotSpeed
+        end
+        
+        -- Vertical rotation (up/down actions)
+        if input.actions.turnUp then
+            camera.rotX = camera.rotX + rotSpeed
+            -- Limit the up/down rotation to avoid flipping
+            camera.rotX = math.min(camera.rotX, math.pi/2 - 0.1)
+        elseif input.actions.turnDown then
+            camera.rotX = camera.rotX - rotSpeed
+            -- Limit the up/down rotation to avoid flipping
+            camera.rotX = math.max(camera.rotX, -math.pi/2 + 0.1)
         end
     end
 end

@@ -51,6 +51,10 @@ function InputHandler:keyPressed(key, scancode, isrepeat)
             input.actions.turnLeft = true
         elseif key == "right" then
             input.actions.turnRight = true
+        elseif key == "up" then
+            input.actions.turnUp = true
+        elseif key == "down" then
+            input.actions.turnDown = true
         end
     end
 end
@@ -68,6 +72,10 @@ function InputHandler:keyReleased(key, scancode)
             input.actions.turnLeft = false
         elseif key == "right" then
             input.actions.turnRight = false
+        elseif key == "up" then
+            input.actions.turnUp = false
+        elseif key == "down" then
+            input.actions.turnDown = false
         end
     end
 end

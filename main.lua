@@ -42,10 +42,11 @@ function love.load(arg)
   CubeBuilder.createCube(world, 0, 0, 0, 2) -- Create a cube at origin with size 2
   
   print("3D Wireframe Renderer Initialized")
-  print("Controls:")
+  print("\nControls:")
   print("  WASD - Move camera forward, backward, left, right")
   print("  Space/Shift - Move camera up/down")
-  print("  Left/Right Arrow - Rotate camera")
+  print("  Left/Right Arrow - Rotate camera left/right")
+  print("  Up/Down Arrow - Rotate camera up/down")
   print("  Escape - Quit")
 end
 

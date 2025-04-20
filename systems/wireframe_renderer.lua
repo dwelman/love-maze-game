@@ -14,15 +14,22 @@ function WireframeRenderer:project3Dto2D(point3D, camera)
     local dy = point3D.y - camera.y
     local dz = point3D.z - camera.z
     
-    -- Simple rotation around Y axis (yaw)
-    local cos = math.cos(camera.rotY)
-    local sin = math.sin(camera.rotY)
+    -- First, rotate around Y axis (yaw - left/right)
+    local cosY = math.cos(camera.rotY)
+    local sinY = math.sin(camera.rotY)
     
-    local rotX = dx * cos - dz * sin
-    local rotZ = dx * sin + dz * cos
+    local rotX = dx * cosY - dz * sinY
+    local rotZ = dx * sinY + dz * cosY
+    
+    -- Then, rotate around X axis (pitch - up/down)
+    local cosX = math.cos(camera.rotX)
+    local sinX = math.sin(camera.rotX)
+    
+    local finalY = dy * cosX - rotZ * sinX
+    local finalZ = dy * sinX + rotZ * cosX
     
     -- Don't render points behind the camera
-    if rotZ <= camera.near then
+    if finalZ <= camera.near then
         return nil
     end
     
@@ -32,11 +39,11 @@ function WireframeRenderer:project3Dto2D(point3D, camera)
     local fovFactor = math.tan(camera.fov / 2)
     
     -- Calculate 2D screen coordinates
-    local scale = 1 / (rotZ * fovFactor)
+    local scale = 1 / (finalZ * fovFactor)
     local screenX = screenWidth / 2 + rotX * scale * screenHeight
-    local screenY = screenHeight / 2 - dy * scale * screenHeight
+    local screenY = screenHeight / 2 - finalY * scale * screenHeight
     
-    return screenX, screenY, rotZ
+    return screenX, screenY, finalZ
 end
 
 function WireframeRenderer:draw()
