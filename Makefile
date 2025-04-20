@@ -11,7 +11,7 @@ else
     RM = rm -f
     MKDIR = mkdir -p
     RMDIR = rm -rf
-	LOVE_PATH = "love"
+	LOVE_PATH = ./love
     SEP = /
 endif
 

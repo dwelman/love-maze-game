@@ -35,13 +35,17 @@
 ------------
 
 -- standard libraries used
-local debug, io, math, os, string, table =
-   debug, io, math, os, string, table
+local debug = require("debug")
+local io = require("io")
+local math = require("math")
+local os = require("os")
+local string = require("string")
+local table = require("table")
 
 -- required core global functions
-local assert, error, ipairs, pairs, pcall, print, setmetatable, tonumber =
-   assert, error, ipairs, pairs, pcall, print, setmetatable, tonumber
-local fmt, tostring, type, unpack = string.format, tostring, type, unpack
+local assert, error, ipairs, pairs, pcall, print, select, tonumber, type =
+   assert, error, ipairs, pairs, pcall, print, select, tonumber, type
+local fmt, tostring, unpack = string.format, tostring, unpack
 local getmetatable, rawget, setmetatable, xpcall =
    getmetatable, rawget, setmetatable, xpcall
 local exit, next, require = os.exit, next, require
@@ -65,14 +69,8 @@ local socket = socket
 pcall(require, "posix")
 local posix = posix
 
--- Use luasocket's gettime(), luaposix' gettimeofday(), or os.date for
--- timestamps
-local now = socket.gettime or posix.gettimeofday and
-            function ()
-               local s, us = posix.gettimeofday()
-               return s + us / 1000000
-            end or
-            function () return tonumber(os.date("%s")) end
+-- Use os.date for timestamps since we don't have socket or posix
+local now = function () return tonumber(os.date("%s")) end
 
 -- Get env immediately wrapping module, to put assert_ tests there.
 local _importing_env = getenv()

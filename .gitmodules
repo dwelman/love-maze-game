@@ -1,6 +1,6 @@
 [submodule "Concord"]
 	path = Concord
-	url = https://github.com/Keyslam-Group/Concord
+	url = https://github.com/Keyslam-Group/Concord.git
 [submodule "lovetest"]
 	path = lovetest
 	url = https://github.com/hawkthorne/lovetest.git

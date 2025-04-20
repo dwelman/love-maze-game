@@ -1,8 +1,10 @@
 function test_loader()
+    -- Print the directory the executable is running in
+    print("Current directory: " .. love.filesystem.getSourceBaseDirectory())
     local Loader = require 'loader'
-    local test_path = "testdata/test_loader"
-    Loader:setBasePath(test_path)
-    Loader:loadComponents("components")
-    Loader:loadSystems("systems")
+    -- Use a programmatic path that works with LÖVE's filesystem
+    local test_path = "test/testdata/"
+    Loader:loadComponents(test_path.."components")
+    Loader:loadSystems(test_path.."systems")
 end
 

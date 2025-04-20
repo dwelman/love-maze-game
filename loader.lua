@@ -3,6 +3,9 @@ local Loader = {
 }
 
 function Loader:setBasePath(path)
+    if path ~= "" and path:sub(-1) ~= "/" then
+        path = path .. "/"
+    end
     self.base_path = path
 end
 
@@ -12,7 +15,12 @@ function Loader:loadComponents(path)
             if file:match("%.lua$") then
                 local name = file:gsub("%.lua$", "")
                 print("Loading component: " .. name)
-                require("components." .. name)
+                local chunk = love.filesystem.load(self.base_path .. path .. "/" .. file)
+                if chunk then
+                    chunk()
+                else
+                    print("Error loading component: " .. name)
+                end
             end
         end
     else
@@ -26,7 +34,12 @@ function Loader:loadSystems(path)
             if file:match("%.lua$") then
                 local name = file:gsub("%.lua$", "")
                 print("Loading system: " .. name)
-                require("systems." .. name)
+                local chunk = love.filesystem.load(self.base_path .. path .. "/" .. file)
+                if chunk then
+                    chunk()
+                else
+                    print("Error loading system: " .. name)
+                end
             end
         end
     else
